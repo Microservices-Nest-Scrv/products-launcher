@@ -27,29 +27,29 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
       - DATABASE_URL=file:./dev.db
   
-  # # Orders MS
-  # orders-ms:
-  #   depends_on:
-  #     - orders-db
-  #   build: ./orders-ms
-  #   volumes:
-  #     - ./orders-ms/src:/usr/src/app/src
-  #   command: npm run start:dev
-  #   environment:
-  #     - PORT=3002
-  #     - DATABASE_URL=postgresql://postgres:1234qwer@orders-db:5432/ordersdb?schema=public
-  #     - NATS_SERVERS=nats://nats-server:4222
+  # Orders MS
+  orders-ms:
+    depends_on:
+      - orders-db
+    build: ./orders-ms
+    volumes:
+      - ./orders-ms/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3002
+      - DATABASE_URL=postgresql://postgres:1234qwer@orders-db:5432/ordersdb?schema=public
+      - NATS_SERVERS=nats://nats-server:4222
 
-  # # Orders DB
-  # orders-db:
-  #   container_name: orders_database
-  #   image: postgres:16.2
-  #   restart: always
-  #   volumes:
-  #     - ./orders-ms/postgres:/var/lib/postgresql/data
-  #   ports:
-  #     - 5433:5432
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=1234qwer
-  #     - POSTGRES_DB=ordersdb
+  # Orders DB
+  orders-db:
+    container_name: orders_database
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./orders-ms/postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234qwer
+      - POSTGRES_DB=ordersdb
